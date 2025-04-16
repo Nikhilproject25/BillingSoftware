@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 @Table
 @Data
 @Builder
+@AllArgsConstructor
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,7 @@ public class CategoryEntity {
     private Timestamp updatedAt;
 
 
+    public CategoryEntity() {
 
-
-
+    }
 }
