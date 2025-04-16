@@ -41,10 +41,9 @@ public class FileUploadServiceImpl implements FileUploadService {
                    .acl("public-read")
                    .contentType(file.getContentType())
                    .build();
-           PutObjectResponse putObjectResponse = S3Client.create()
-                   .putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
+           PutObjectResponse putObjectResponse = s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
 
-           if(putObjectResponse.sdkHttpResponse().statusCode() != 200) {
+           if(putObjectResponse.sdkHttpResponse().isSuccessful()) {
                return "https://"+bucketName+".s3.amazonaws/"+imgUrl;
            }
            else {
