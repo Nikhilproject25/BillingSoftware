@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -30,10 +31,14 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
-    @DeleteMapping("/{name}")
-    @ResponseStatus(HttpStatus.LOCKED)
-    public void deleteCategoryByName(@PathVariable String name) {
-        categoryService.deleteCategoryByName(name);
+    @DeleteMapping("/{categoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCategoryByName(@PathVariable String categoryId) {
+        try {
+            categoryService.deleteCategoryById(categoryId);
+        }catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 
 }

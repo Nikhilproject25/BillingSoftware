@@ -34,8 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategoryByName(String name) {
-        categoryRepository.findCategoryEntityByName(name);
+    public void deleteCategoryById(String categoryId) {
+        CategoryEntity categoryEntity = categoryRepository.findCategoryEntityByCategoryId(categoryId).orElseThrow(()->new  RuntimeException("category not found"+categoryId));
+        categoryRepository.delete(categoryEntity);
     }
 
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
