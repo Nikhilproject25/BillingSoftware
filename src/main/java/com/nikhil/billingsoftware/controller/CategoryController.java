@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CategoryController {
     @Autowired
     private  CategoryService categoryService;
@@ -39,7 +40,7 @@ public class CategoryController {
     }
 
     @RequestMapping
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public List<CategoryResponse> getAllCategories() {
         return categoryService.getAllCategories();
     }
